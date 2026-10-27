@@ -158,20 +158,14 @@ export function Hero() {
           </div>
         </div>
 
-        {/* ALT: wordmark + tanıtım */}
-        <div className="mt-14 grid items-start gap-10 md:mt-20 lg:grid-cols-[1.05fr_1fr]">
-          <h1 className="font-bold text-hero-mark text-bumble-ink">
-            <span className="block">SULTAN</span>
-            <span className="block">FATİH</span>
-          </h1>
-
-          <div className="lg:pt-4">
-            <p className="max-w-md text-subheading text-bumble-ink/80">
-              Fatih ve Beylikdüzü&apos;nün en başarılı koleji. Öğrencilerimizin
-              kulüp, yarışma ve sınav başarıları ana sayfada
-              sırayla ve animasyonlu olarak akar.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+        {/* ALT: CTA satırı — görünür başlık/tanıtım yazısı kaldırıldı;
+            h1 yalnızca ekran okuyucu ve SEO için tutulur */}
+        <h1 className="sr-only">
+          Özel Sultan Fatih Eğitim Kurumları — Sultan Fatih Koleji
+        </h1>
+        <div className="mt-12 flex flex-wrap items-start justify-between gap-8 md:mt-14">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/on-kayit"
                 className="rounded-buttons bg-bumble-ink px-8 py-4 text-body font-medium tracking-[0.016em] text-paper-white transition-colors hover:bg-charcoal"
@@ -189,18 +183,19 @@ export function Hero() {
               <ShieldCheck size={16} aria-hidden className="shrink-0" />
               Ön kayıt 3 kısa adımdan oluşur; bilgileriniz KVKK kapsamında, yalnızca onayınızla işlenir.
             </p>
-            <ul className="mt-8 flex flex-wrap gap-2" aria-label="Öne çıkan başarılar">
-              {STAT_PILLS.map(({ icon: Icon, label }) => (
-                <li
-                  key={label}
-                  className="flex items-center gap-2 rounded-full bg-paper-white px-4 py-2 text-caption font-medium text-bumble-ink shadow-sm"
-                >
-                  <Icon size={16} strokeWidth={2} aria-hidden />
-                  {label}
-                </li>
-              ))}
-            </ul>
           </div>
+
+          <ul className="flex flex-wrap gap-2 lg:justify-end" aria-label="Öne çıkan başarılar">
+            {STAT_PILLS.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2 rounded-full bg-paper-white px-4 py-2 text-caption font-medium text-bumble-ink shadow-sm"
+              >
+                <Icon size={16} strokeWidth={2} aria-hidden />
+                {label}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
