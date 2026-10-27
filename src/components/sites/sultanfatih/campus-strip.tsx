@@ -36,13 +36,13 @@ export function CampusStrip() {
                   href={item.href}
                   className="group block overflow-hidden rounded-cards bg-pollen p-3 shadow-sm transition-transform hover:-translate-y-1"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-cards bg-mist">
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-mist">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       unoptimized
-                      sizes="(min-width: 768px) 33vw, 92vw"
+                      sizes="40px"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
@@ -79,7 +79,7 @@ export function CampusStrip() {
                     alt={item.title}
                     fill
                     unoptimized
-                    sizes="(min-width: 768px) 33vw, 92vw"
+                    sizes="40px"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {isPreferred && (
