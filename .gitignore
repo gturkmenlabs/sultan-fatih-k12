@@ -50,3 +50,6 @@ temp/
 
 # Generated knowledge graph output (local cache)
 graphify-out/
+
+# Self-contained HTML delivery (regenerate with scripts/export-html.py)
+exports/

@@ -64,7 +64,6 @@ export const ACHIEVEMENT_SLIDES: AchievementSlide[] = [
   { src: "/sites/sultanfatih/hero/hero-09.png", label: "Robot Turnuvasında Birincilik ve 3 Kupa", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/robot-turnuvasinda-birincilik-ve-3-kupa-4174", category: "Robotik & Teknoloji" },
   { src: "/sites/sultanfatih/hero/hero-10.png", label: "LGS 2024 Başarı Tablomuz", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/lgs-2024-4147", category: "Sınav Başarısı" },
   { src: "/sites/sultanfatih/hero/hero-11.jpg", label: "Bilim Olimpiyatlarında 2 Madalya", href: "https://www.sultanfatih.k12.tr/sultan-fatih-anadolu-lisesi-fen-lisesi/bilim-olimpiyatlarinda-2-madalya-4146", category: "Akademik & Bilim" },
-  { src: "/sites/sultanfatih/hero/hero-12.jpg", label: "Ön Kayıt Formunuz Hazır", href: "/on-kayit", category: "Kayıt & Tanıtım" },
   { src: "/sites/sultanfatih/hero/hero-13.png", label: "YKS Gurur Tablomuz", href: "https://www.sultanfatih.k12.tr/sultan-fatih-anadolu-lisesi-fen-lisesi/yks-gurur-tablomuz-3871", category: "Sınav Başarısı" },
   { src: "/sites/sultanfatih/hero/hero-14.jpg", label: "Tanıtım Kataloğumuzu İnceleyin", href: OFFICIAL.catalog, category: "Kayıt & Tanıtım" },
   { src: "/sites/sultanfatih/hero/hero-15.png", label: "İstanbul Bilgi Yarışması Şampiyonluğu", href: "/kurumsal#basarilar", category: "Akademik & Bilim" },
@@ -82,7 +81,6 @@ export interface CampusItem {
 export const CAMPUS: CampusItem[] = [
   { image: "/sites/sultanfatih/campus/beylikduzu.jpg", title: "Beylikdüzü Kampüsü", caption: "Anaokulu · İlkokul · Ortaokul", href: "https://www.sultanfatih.k12.tr/kampusler/beylikduzu-kampusu/beylikduzu-sultan-fatih-ilkokulu" },
   { image: "/sites/sultanfatih/campus/fatih.jpg", title: "Fatih Kampüsü", caption: "İlkokul · Ortaokul · Lise", href: "https://www.sultanfatih.k12.tr/kampusler/fatih-kampusu/sultan-fatih-ilkokulu" },
-  { image: "/sites/sultanfatih/campus/kayit.jpg", title: "Ön Kayıt Formu", caption: "2026–2027 kayıt dönemi başladı", href: "/on-kayit", isCta: true },
 ];
 
 export interface NewsItem {
