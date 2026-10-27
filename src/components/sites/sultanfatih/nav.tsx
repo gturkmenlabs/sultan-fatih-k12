@@ -79,13 +79,6 @@ export function SiteNav() {
             <Globe size={18} strokeWidth={2} aria-hidden />
             <span className="hidden xl:inline">TR</span>
           </a>
-          <Link
-            href="/on-kayit"
-            aria-current={pathname === "/on-kayit" ? "page" : undefined}
-            className="rounded-buttons bg-bumble-ink px-6 py-3 text-body font-medium tracking-[0.016em] text-paper-white transition-colors hover:bg-charcoal"
-          >
-            Ön Kayıt
-          </Link>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

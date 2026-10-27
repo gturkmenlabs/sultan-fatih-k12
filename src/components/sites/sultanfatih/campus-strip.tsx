@@ -36,11 +36,12 @@ export function CampusStrip() {
                   href={item.href}
                   className="group block overflow-hidden rounded-cards bg-pollen p-3 shadow-sm transition-transform hover:-translate-y-1"
                 >
-                  <div className="relative h-48 overflow-hidden rounded-cards">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-cards bg-mist">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
+                      unoptimized
                       sizes="(min-width: 768px) 33vw, 92vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
@@ -70,13 +71,14 @@ export function CampusStrip() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block h-48 overflow-hidden rounded-cards"
+                  className="group relative block aspect-square w-full overflow-hidden rounded-cards bg-mist"
                   aria-label={`${item.title} sayfasını aç (yeni sekme)`}
                 >
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
+                    unoptimized
                     sizes="(min-width: 768px) 33vw, 92vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
