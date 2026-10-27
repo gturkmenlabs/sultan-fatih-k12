@@ -6,6 +6,69 @@ import Link from "next/link";
 import { CheckCircle2, ChevronLeft, ChevronRight, Medal, Bot, ShieldCheck, Trophy } from "lucide-react";
 import { ACHIEVEMENT_SLIDES } from "./data";
 
+const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> = {
+  "/sites/sultanfatih/hero/hero-01.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-02.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-03.jpeg": {
+    "width": 1600,
+    "height": 625
+  },
+  "/sites/sultanfatih/hero/hero-04.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-05.png": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-06.png": {
+    "width": 1200,
+    "height": 469
+  },
+  "/sites/sultanfatih/hero/hero-07.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-08.jpeg": {
+    "width": 1600,
+    "height": 625
+  },
+  "/sites/sultanfatih/hero/hero-09.png": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-10.png": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-11.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-12.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-13.png": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-14.jpg": {
+    "width": 1920,
+    "height": 750
+  },
+  "/sites/sultanfatih/hero/hero-15.png": {
+    "width": 1080,
+    "height": 1350
+  }
+};
+
 const SLIDE_MS = 4500;
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -28,9 +91,8 @@ const STAT_PILLS = [
 ];
 
 /**
- * Altın hero — başarı resimleri EN ÜSTTE tam genişlikte akar,
- * altında dev SULTAN FATİH wordmark'ı + tanıtım metni ve CTA'lar gelir.
- * Başarı resimleri sırayla (4,5 sn) çapraz fade + yavaş zoom ile geçer.
+ * Başarı resimleri doğal en-boy oranıyla, kırpılmadan gösterilir.
+ * Altında gezinme kontrolleri ve başvuru bağlantıları bulunur.
  */
 export function Hero() {
   const [index, setIndex] = useState(0);
@@ -77,7 +139,7 @@ export function Hero() {
 
           <div className="relative overflow-hidden rounded-cards bg-paper-white p-2 shadow-lg">
             {/* Gösterim penceresi — 2.56 poster oranı, metin kırpmadan */}
-            <div className="relative aspect-[64/25] overflow-hidden rounded-cards bg-mist">
+            <div className="relative overflow-hidden rounded-cards bg-mist">
               {ACHIEVEMENT_SLIDES.map((slide, i) => (
                 <a
                   key={slide.src}
@@ -87,15 +149,16 @@ export function Hero() {
                     : {})}
                   aria-hidden={i !== index}
                   tabIndex={i === index ? 0 : -1}
-                  className={`sfk-slide absolute inset-0 ${i === index ? "is-active" : ""}`}
+                  className={i === index ? "relative block" : "hidden"}
                 >
                   <Image
                     src={slide.src}
                     alt={slide.label}
-                    fill
+                    width={IMAGE_DIMENSIONS[slide.src].width}
+                    height={IMAGE_DIMENSIONS[slide.src].height}
                     priority={i === 0}
                     sizes="(min-width: 1280px) 1216px, 92vw"
-                    className="sfk-slide-img object-cover"
+                    className="mx-auto h-auto max-w-full object-contain"
                   />
                 </a>
               ))}
@@ -103,10 +166,10 @@ export function Hero() {
               {/* Doğrulama rozeti — beyaz pill, ink metin + checkmark */}
               <p
                 aria-live="polite"
-                className="absolute bottom-3 left-3 right-16 inline-flex max-w-full items-center gap-2 self-start rounded-full bg-paper-white py-1.5 pl-3 pr-4 text-caption font-medium text-bumble-ink shadow-sm"
+                className="relative mt-3 inline-flex max-w-full items-center gap-2 self-start rounded-full bg-paper-white py-1.5 pl-3 pr-4 text-caption font-medium text-bumble-ink shadow-sm"
               >
                 <CheckCircle2 size={15} strokeWidth={2.2} aria-hidden />
-                <span className="truncate">{active.label}</span>
+                <span>{active.label}</span>
               </p>
             </div>
           </div>
@@ -171,6 +234,12 @@ export function Hero() {
                 className="rounded-buttons bg-bumble-ink px-8 py-4 text-body font-medium tracking-[0.016em] text-paper-white transition-colors hover:bg-charcoal"
               >
                 Ön Kayıt Yap
+              </Link>
+              <Link
+                href="/kurumsal"
+                className="rounded-buttons bg-paper-white px-6 py-4 text-body font-medium text-bumble-ink shadow-sm transition-colors hover:bg-mist"
+              >
+                Kurumumuzu Tanıyın
               </Link>
               <a
                 href="https://www.sultanfatih.k12.tr/Uploads/files/katalog.pdf"
