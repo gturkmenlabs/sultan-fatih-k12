@@ -71,7 +71,7 @@ export function CampusStrip() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block aspect-square w-full overflow-hidden rounded-cards bg-mist"
+                  className="group relative block h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-mist"
                   aria-label={`${item.title} sayfasını aç (yeni sekme)`}
                 >
                   <Image
