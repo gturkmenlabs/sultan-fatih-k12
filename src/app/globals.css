@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  /* Colors — Bumble register (Sunlit honey editorial) */
+  --color-bumble-honey: #ffdb5b;
+  --color-pollen: #fff386;
+  --color-bumble-ink: #202020;
+  --color-paper-white: #ffffff;
+  --color-mist: #f3f3f3;
+  --color-charcoal: #3b3b3b;
+  --color-graphite: #575656;
+  --color-onyx: #343333;
+
+  /* Typography — wired to next/font variables in layout.tsx */
+  --font-bumblesans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale */
+  --text-caption: 15px;
+  --text-caption--line-height: 1.5;
+  --text-caption--letter-spacing: 0.007em;
+
+  --text-body: 17px;
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: 0.012em;
+
+  --text-body-sm: 15px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--letter-spacing: 0.01em;
+
+  --text-subheading: 20px;
+  --text-subheading--line-height: 1.33;
+  --text-subheading--letter-spacing: 0.016em;
+
+  --text-heading-sm: 24px;
+  --text-heading-sm--line-height: 1.25;
+  --text-heading-sm--letter-spacing: 0.018em;
+
+  --text-heading: 32px;
+  --text-heading--line-height: 1.2;
+  --text-heading--letter-spacing: 0.02em;
+
+  --text-heading-lg: 40px;
+  --text-heading-lg--line-height: 1.18;
+  --text-heading-lg--letter-spacing: 0.02em;
+
+  --text-display: clamp(48px, 7vw, 68px);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: 0.02em;
+
+  --text-hero-mark: clamp(64px, 12vw, 190px);
+  --text-hero-mark--line-height: 0.85;
+  --text-hero-mark--letter-spacing: 0.02em;
+
+  /* Spacing */
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+
+  /* Border radius */
+  --radius-sm-el: 9px;
+  --radius-nav: 16px;
+  --radius-buttons: 16px;
+  --radius-cards: 24px;
+  --radius-photo: 16px;
+  --radius-full: 1000px;
+
+  /* Shadows */
+  --shadow-sm: rgba(32, 32, 32, 0.12) 0px 1px 8px 0px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper-white text-bumble-ink font-bumblesans antialiased;
+  }
+  ::selection {
+    background: var(--color-bumble-ink);
+    color: var(--color-paper-white);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Başarı resimleri — sırayla animasyonlu geçiş                        */
+/* ------------------------------------------------------------------ */
+
+/* Çapraz fade + Ken Burns — aktif slayt yavaşça yakınlaşıp sağa kayar */
+@keyframes sfk-kenburns {
+  from {
+    transform: scale(1.08) translateX(2%);
+  }
+  to {
+    transform: scale(1) translateX(0);
+  }
+}
+
+.sfk-slide {
+  opacity: 0;
+  transition: opacity 700ms ease;
+  pointer-events: none;
+}
+.sfk-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sfk-slide.is-active .sfk-slide-img {
+  animation: sfk-kenburns 7s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sfk-slide.is-active .sfk-slide-img {
+    animation: none;
+  }
+  .sfk-slide {
+    transition: opacity 200ms ease;
+  }
+}
