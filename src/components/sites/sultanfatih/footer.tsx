@@ -140,6 +140,16 @@ export function SiteFooter() {
           >
             2026–2027 Ön Kayıt Oluştur
           </Link>
+          <address className="mt-6 space-y-1.5 text-body-sm not-italic text-paper-white/70">
+            <span className="block">Fatih: Derviş Ali Mah. Yahyazade Sok. No:7</span>
+            <span className="block">Beylikdüzü: Fatih</span>
+            <a href="tel:+902125312282" className="block font-medium text-paper-white hover:underline">
+              0212 531 22 82
+            </a>
+            <a href="mailto:bilgi@sultanfatih.k12.tr" className="block hover:text-paper-white hover:underline">
+              bilgi@sultanfatih.k12.tr
+            </a>
+          </address>
           <ul className="mt-6 flex gap-2" aria-label="Sosyal medya">
             {SOCIALS.map(({ icon: Icon, label, href }) => (
               <li key={label}>

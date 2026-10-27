@@ -27,6 +27,7 @@ export interface LeadDraft {
   grade?: string;
   campus?: string;
   note?: string;
+  applicationType?: string;
   /** Formun kaldığı adım (1–3) — kazanılmış ilerleme hissini korur */
   step?: number;
   updatedAt?: string;

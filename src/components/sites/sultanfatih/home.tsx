@@ -2,7 +2,8 @@ import { AnnouncementBar } from "./announcement";
 import { SiteNav } from "./nav";
 import { Hero } from "./hero";
 import { CampusStrip } from "./campus-strip";
-import { QuickAccessStrip, ValuesGrid, NewsSection, PartnersStrip } from "./sections";
+import { QuickAccessStrip, ValuesGrid, NewsSection, PartnersStrip, ProgramBadges } from "./sections";
+import { ParentToday } from "./parent-today";
 import { AchievementsWall } from "./achievements";
 import { LifeGallery } from "./gallery";
 import { LeadCta } from "./lead-cta";
@@ -27,7 +28,9 @@ export default function SultanFatihHome() {
         <Hero />
         <CampusStrip />
         <QuickAccessStrip />
+        <ParentToday />
         <ValuesGrid />
+        <ProgramBadges />
         <AchievementsWall />
         <NewsSection />
         <LifeGallery />

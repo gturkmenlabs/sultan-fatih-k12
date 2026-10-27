@@ -11,7 +11,7 @@ import {
   ShieldCheck,
   Trash2,
 } from "lucide-react";
-import { CAMPUS_NAMES, LEVELS, OFFICIAL, REGISTRATION_STEPS } from "./data";
+import { APPLICATION_TYPES, CAMPUS_NAMES, LEVELS, OFFICIAL, REGISTRATION_STEPS } from "./data";
 import {
   STORAGE_KEYS,
   isValidPhone,
@@ -32,6 +32,7 @@ const labelClass = "mb-1.5 block text-caption font-medium text-bumble-ink";
 const errorClass = "mt-1.5 text-caption font-medium text-red-700";
 
 interface Fields {
+  applicationType: string;
   parentName: string;
   phone: string;
   email: string;
@@ -43,6 +44,7 @@ interface Fields {
 }
 
 const EMPTY: Fields = {
+  applicationType: "Ön kayıt",
   parentName: "",
   phone: "",
   email: "",
@@ -80,30 +82,46 @@ export function PreRegistrationForm() {
   const loadedRef = useRef(false);
   const submittedRef = useRef(false);
 
-  /* Taslağı / kampüs tercihini / URL parametresini yükle */
+  /* Taslağı / kampüs tercihini / URL parametrelerini yükle
+     (derin bağlantılar: ?kampus=… · ?kademe=… · ?tip=burs) */
   useEffect(() => {
     const draft = readJSON<LeadDraft>(STORAGE_KEYS.draft);
     const campusPref = readStorage(STORAGE_KEYS.campus) ?? "";
-    const queryCampus =
-      new URLSearchParams(window.location.search).get("kampus") ?? "";
+    const params = new URLSearchParams(window.location.search);
+    const queryCampus = params.get("kampus") ?? "";
+    const rawLevel = params.get("kademe") ?? "";
+    const queryLevel = (LEVELS as readonly string[]).includes(rawLevel)
+      ? rawLevel
+      : "";
+    const queryType =
+      params.get("tip") === "burs" ? "Bursluluk sınavı bilgilendirmesi" : "";
+    const validCampus = (CAMPUS_NAMES as readonly string[]).includes(queryCampus)
+      ? queryCampus
+      : "";
     setPreviousRef(readStorage(STORAGE_KEYS.submittedRef));
 
     if (draft) {
       setFields({
+        applicationType: queryType || draft.applicationType || "Ön kayıt",
         parentName: draft.parentName ?? "",
         phone: draft.phone ?? "",
         email: draft.email ?? "",
         studentName: draft.studentName ?? "",
-        level: draft.level ?? "",
+        level: queryLevel || draft.level || "",
         grade: draft.grade ?? "",
-        campus: queryCampus || draft.campus || campusPref,
+        campus: validCampus || draft.campus || campusPref,
         note: draft.note ?? "",
       });
       const savedStep = Math.min(3, Math.max(1, draft.step ?? 1));
       setStep(savedStep);
       setRestored(true);
-    } else if (queryCampus || campusPref) {
-      setFields((f) => ({ ...f, campus: queryCampus || campusPref }));
+    } else if (validCampus || campusPref || queryLevel || queryType) {
+      setFields((f) => ({
+        ...f,
+        campus: validCampus || campusPref || f.campus,
+        level: queryLevel || f.level,
+        applicationType: queryType || f.applicationType,
+      }));
     }
     loadedRef.current = true;
   }, []);
@@ -396,6 +414,21 @@ export function PreRegistrationForm() {
           </legend>
           <div className="mt-6 space-y-4">
             <div>
+              <label htmlFor="f-type" className={labelClass}>
+                Başvuru türü
+              </label>
+              <select
+                id="f-type"
+                value={fields.applicationType}
+                onChange={set("applicationType")}
+                className={inputClass}
+              >
+                {APPLICATION_TYPES.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label htmlFor="f-student" className={labelClass}>
                 Öğrencinin adı (yalnızca adı yeterli)
               </label>
@@ -490,6 +523,10 @@ export function PreRegistrationForm() {
           </legend>
 
           <dl className="mt-6 grid gap-x-6 gap-y-3 rounded-cards bg-mist p-5 text-body-sm sm:grid-cols-2">
+            <div>
+              <dt className="text-graphite">Başvuru türü</dt>
+              <dd className="font-semibold text-bumble-ink">{fields.applicationType || "Ön kayıt"}</dd>
+            </div>
             <div>
               <dt className="text-graphite">Veli</dt>
               <dd className="font-semibold text-bumble-ink">{fields.parentName || "—"}</dd>

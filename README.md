@@ -25,8 +25,13 @@ npm run check      # lint + typecheck + production build
 
 | Rota | Açıklama |
 |---|---|
-| `/` | Ana sayfa (hero, kampüsler, hızlı erişim, eğitim, başarılar, haberler, galeri, ön kayıt bandı) |
-| `/on-kayit` | 3 adımlı ön kayıt formu; taslak cihazda saklanır, kaldığı yerden devam edilir |
+| `/` | Ana sayfa (hero, kampüsler, hızlı erişim, "Bugün Okulda", eğitim, program rozetleri, başarılar, haberler, bento galeri, ön kayıt bandı) |
+| `/kurumsal` | Kurumsal sayfalar, değerlerimiz, mezunlar & kariyer, vakıf |
+| `/kademeler` | Anaokulu → Fen Lisesi: kademe programları ve kampüs dağılımı; kademe bazlı ön kayıt derin bağlantısı |
+| `/kampusler` | Kampüs kartları, yol tarifi ve fotoğraf turu (`#tur`) |
+| `/kayit-burslar` | Süreç rehberi, burs/indirim bilgisi, SSS |
+| `/iletisim` | Kampüs iletişim kartları, yol tarifi, "sizi arayalım" |
+| `/on-kayit` | 3 adımlı ön kayıt formu; taslak cihazda saklanır. Derin bağlantılar: `?kampus=`, `?kademe=`, `?tip=burs` |
 | `POST /api/on-kayit` | Başvuru kabul ucu: doğrular, referans numarası üretir, tanımlıysa CRM webhook'una iletir |
 | `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest` | SEO/PWA dosyaları (otomatik üretilir) |
 
@@ -41,8 +46,8 @@ LEAD_WEBHOOK_URL="https://<crm-köprünüz>/lead"
 LEAD_WEBHOOK_SECRET="<isteğe bağlı paylaşılan sır>"   # X-Lead-Secret başlığıyla gönderilir
 ```
 
-Webhook gövdesi: `{ reference, submittedAt, source, lead: { parentName,
-phone, email, studentName, level, grade, campus, note, contactConsent } }`
+Webhook gövdesi: `{ reference, submittedAt, source, lead: { applicationType,
+parentName, phone, email, studentName, level, grade, campus, note, contactConsent } }`
 
 ## Dizin yapısı
 
@@ -56,6 +61,7 @@ src/
     storage.ts                  # cihaz-içi tercih/taslak (depolanan değer)
 public/sites/sultanfatih/       # görsel varlıklar
 docs/hook-model-uygulama.md     # Kanca Modeli uygulama & etik haritası
+docs/tasarim-sistemi-ve-ia.md   # school-website-design-v3 uygulama durumu (token/IA/kalite kapıları)
 docs/research/sultanfatih/      # kaynak site araştırma notları
 ```
 

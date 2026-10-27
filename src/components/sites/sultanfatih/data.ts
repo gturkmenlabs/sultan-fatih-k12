@@ -4,6 +4,11 @@ export const SCHOOL = {
   name: "Sultan Fatih K.12",
   legalName: "Özel Sultan Fatih Eğitim Kurumları",
   url: "https://www.sultanfatih.k12.tr",
+  /* İletişim bilgileri resmî "Kampüslerimiz" sayfasından doğrulandı:
+     https://www.sultanfatih.k12.tr/kurumsal/kampuslerimiz */
+  email: "bilgi@sultanfatih.k12.tr",
+  phoneMain: "0212 531 22 82",
+  phoneMainHref: "tel:+902125312282",
   logo: "/sites/sultanfatih/brand/logo.png",
   socials: [
     "https://www.facebook.com/sultanfatih",
@@ -147,17 +152,219 @@ export const VALUES: ValueCard[] = [
 ];
 
 /**
- * Ana navigasyon — sayfa içi bölümlere gider (eylem sürtünmesini azaltır).
- * href'ler `/#…` biçimindedir; `/on-kayit` gibi iç sayfalardan da çalışır.
+ * Ana navigasyon — school-website-design-v3 bilgi mimarisindeki
+ * üst düzey sayfalara gider. Aktif durumu nav bileşeni pathname'den okur.
  */
 export const NAV_ITEMS = [
-  { label: "Kampüsler", href: "/#kampusler", sectionId: "kampusler" },
-  { label: "Eğitim", href: "/#egitim", sectionId: "egitim" },
-  { label: "Başarılarımız", href: "/#basarilar", sectionId: "basarilar" },
-  { label: "Haberler", href: "/#haberler", sectionId: "haberler" },
-  { label: "Yaşam", href: "/#yasam", sectionId: "yasam" },
-  { label: "İletişim", href: "/#iletisim", sectionId: "iletisim" },
+  { label: "Kurumsal", href: "/kurumsal" },
+  { label: "Kademeler", href: "/kademeler" },
+  { label: "Kampüsler", href: "/kampusler" },
+  { label: "Kayıt & Burslar", href: "/kayit-burslar" },
+  { label: "İletişim", href: "/iletisim" },
 ] as const;
+
+/** Başvuru türleri — /on-kayit formu ve API aynı listeyi kullanır */
+export const APPLICATION_TYPES = [
+  "Ön kayıt",
+  "Bursluluk sınavı bilgilendirmesi",
+  "Genel bilgi",
+] as const;
+
+/**
+ * Program rozetleri — yalnızca sitedeki haber/başarı içeriğiyle
+ * belgelenebilen programlar (uydurma akreditasyon iddiası yok).
+ */
+export const PROGRAM_BADGES = [
+  {
+    icon: "dil" as const,
+    title: "Cambridge ESOL Takibi",
+    desc: "İngilizce kazanımları Cambridge ESOL sınavlarıyla belgelenir",
+  },
+  {
+    icon: "steam" as const,
+    title: "STEAM & Robotik",
+    desc: "VEX Robotics Türkiye şampiyonluğu ve drone/robot takımları",
+  },
+  {
+    icon: "dunya" as const,
+    title: "Erasmus+ & eTwinning",
+    desc: "Uluslararası proje ve değişim programları",
+  },
+  {
+    icon: "bilim" as const,
+    title: "Bilim Olimpiyatları",
+    desc: "Olimpiyatlarda madalya ve bilgi yarışması şampiyonlukları",
+  },
+];
+
+/** Kademeler — /kademeler sayfası. Kampüs bilgisi CAMPUS başlıklarından gelir. */
+export interface LevelDetail {
+  name: (typeof LEVELS)[number];
+  tagline: string;
+  desc: string;
+  points: string[];
+  campuses: string[];
+  image: string;
+  icon: "anaokulu" | "ilkokul" | "ortaokul" | "lise" | "fen";
+}
+
+export const LEVELS_DETAIL: LevelDetail[] = [
+  {
+    name: "Anaokulu",
+    tagline: "Oyun temelli keşif ve güvenli bir başlangıç",
+    desc: "Erken çocuklukta merak duygusunu koruyan, güvenli ve sıcak bir ortamda yaparak-yaşayarak öğrenme.",
+    points: [
+      "Yaparak–yaşayarak öğrenme ve keşif alanları",
+      "Değerler eğitimiyle sosyal-duygusal gelişim",
+      "İngilizceyle erken yaşta tanışma",
+      "Güvenli eğitim ortamı ve bireysel ilgi",
+    ],
+    campuses: ["Beylikdüzü Kampüsü"],
+    image: "/sites/sultanfatih/values/s4.jpg",
+    icon: "anaokulu",
+  },
+  {
+    name: "İlkokul",
+    tagline: "Sağlam temel beceriler, büyüyen merak",
+    desc: "Okuma-yazma ve temel becerilerin yanında kulüpler, yabancı dil ve teknolojiyle zenginleşen bir ilkokul deneyimi.",
+    points: [
+      "Yoğun İngilizce; Cambridge ESOL sınav takibi",
+      "Robot & Lego, satranç, deney ve zekâ oyunları kulüpleri",
+      "Teknoloji destekli sınıflar",
+      "BİLSEM ve yarışmalarda ilkokul başarıları",
+    ],
+    campuses: ["Fatih Kampüsü", "Beylikdüzü Kampüsü"],
+    image: "/sites/sultanfatih/values/s2.jpg",
+    icon: "ilkokul",
+  },
+  {
+    name: "Ortaokul",
+    tagline: "LGS'ye planlı hazırlık, sahnede robotik",
+    desc: "LGS hedefiyle planlanan akademik program; etütler, sınav koçluğu ve Türkiye çapında başarı gösteren robot/drone takımları.",
+    points: [
+      "LGS odaklı sınav hazırlık programı",
+      "Bireysel ve grup etütleriyle yakın takip",
+      "Robot ve drone takımlarından turnuva kupaları",
+      "LGS başarıları ödüllendirilir (haberlerimize bakın)",
+    ],
+    campuses: ["Fatih Kampüsü", "Beylikdüzü Kampüsü"],
+    image: "/sites/sultanfatih/values/s1.jpg",
+    icon: "ortaokul",
+  },
+  {
+    name: "Anadolu Lisesi",
+    tagline: "YKS hedefi ve geniş bir vizyon",
+    desc: "YKS'ye sistemli hazırlanan, bilgi yarışmalarında İstanbul şampiyonlukları yaşayan bir lise topluluğu.",
+    points: [
+      "YKS hazırlık ve gurur tablosu geleneği",
+      "Bilgi yarışmalarında İstanbul şampiyonlukları",
+      "Erasmus+ ve eTwinning projeleriyle küresel bakış",
+      "Değerler eğitimiyle karakter gelişimi",
+    ],
+    campuses: ["Fatih Kampüsü"],
+    image: "/sites/sultanfatih/values/s3.jpg",
+    icon: "lise",
+  },
+  {
+    name: "Fen Lisesi",
+    tagline: "Bilimde derinleşme, olimpiyat kültürü",
+    desc: "Bilim olimpiyatlarında madalyalar kazanan, araştırma ve STEAM projeleriyle öne çıkan fen lisesi programı.",
+    points: [
+      "Bilim Olimpiyatları'nda madalyalar",
+      "STEAM ve araştırma projeleri",
+      "YKS'de güçlü sayısal hazırlık",
+      "Uluslararası yarışmalarda dereceler",
+    ],
+    campuses: ["Fatih Kampüsü"],
+    image: "/sites/sultanfatih/hero/hero-11.jpg",
+    icon: "fen",
+  },
+];
+
+/** Kampüs detayları — /kampusler sayfası */
+export interface CampusDetail {
+  name: string;
+  district: string;
+  address: string;
+  phones: string[];
+  levels: string[];
+  image: string;
+  officialHref: string;
+  mapSearchUrl: string;
+  blurb: string;
+}
+
+export const CAMPUS_DETAIL: CampusDetail[] = [
+  {
+    name: "Fatih Kampüsü",
+    district: "Fatih · İstanbul",
+    address: "Derviş Ali Mahallesi Yahyazade Sokak No:7 Fatih İstanbul",
+    phones: ["0212 531 22 82"],
+    levels: ["İlkokul", "Ortaokul", "Anadolu Lisesi", "Fen Lisesi"],
+    image: "/sites/sultanfatih/campus/fatih.jpg",
+    officialHref:
+      "https://www.sultanfatih.k12.tr/kampusler/fatih-kampusu/sultan-fatih-ilkokulu",
+    mapSearchUrl:
+      "https://www.google.com/maps/search/?api=1&query=Dervi%C5%9F+Ali+Mahallesi+Yahyazade+Sokak+No%3A7+Fatih+%C4%B0stanbul",
+    blurb:
+      "İlkokuldan fen lisesine uzanan kesintisiz eğitim; LGS ve YKS hazırlığının, olimpiyat ve robotik başarılarının merkezi.",
+  },
+  {
+    name: "Beylikdüzü Kampüsü",
+    district: "Beylikdüzü · İstanbul",
+    address: "Fatih Mahallesi Fatih",
+    phones: ["0212 421 08 22", "0212 880 81 10", "0212 509 38 20"],
+    levels: ["Anaokulu", "İlkokul", "Ortaokul"],
+    image: "/sites/sultanfatih/campus/beylikduzu.jpg",
+    officialHref:
+      "https://www.sultanfatih.k12.tr/kampusler/beylikduzu-kampusu/beylikduzu-sultan-fatih-ilkokulu",
+    mapSearchUrl:
+      "https://www.google.com/maps/search/?api=1&query=Derea%C4%9Fz%C4%B1+Mahallesi+Sultan+Fatih+Caddesi+No%3A80+Beylikd%C3%BCz%C3%BC+%C4%B0stanbul",
+    blurb:
+      "Anaokulundan ortaokula erken yaşlarda güvenli başlangıç; BİLSEM ve ilkokul yarışma başarılarıyla öne çıkan kampüsümüz.",
+  },
+];
+
+/**
+ * SSS — yalnızca süreç ve doğrulanmış içerik hakkında. Ücret/oran gibi
+ * değişken bilgilerde kesin rakam uydurulmaz; resmî kaynağa yönlendirilir.
+ */
+export const FAQ_ITEMS: { q: string; a: string; href?: string; hrefLabel?: string }[] = [
+  {
+    q: "Ön kayıt, kesin kayıt anlamına mı gelir?",
+    a: "Hayır. Ön kayıt ilk adımdır: formu iletirsiniz, tanışma ve kampüs turu yapılır, kademeye uygun öğrenci tanıma sürecinin ardından kesin kayıt birlikte tamamlanır. Böylece kararınızı aceleye getirmeden, okulu yerinde görerek verebilirsiniz.",
+  },
+  {
+    q: "Kayıt ücretleri ve ödeme koşulları nasıl öğrenilir?",
+    a: "Ücret ve ödeme koşulları kademe ve döneme göre değiştiği için bu sayfada sabit bir tutar yayımlamıyoruz. Ön kayıt sonrası tanışma görüşmesinde güncel koşullar şeffaf biçimde paylaşılır.",
+  },
+  {
+    q: "Burs ve indirim olanakları var mı?",
+    a: "LGS başarısı okulumuzda ödüllendirilir; indirim oranları için okulumuzla iletişime geçebilirsiniz. Bursluluk sınavı duyuruları yayımladığımızda sizi haberdar etmemizi isterseniz, ön kayıt formunda başvuru türü olarak 'Bursluluk sınavı bilgilendirmesi'ni seçip iletişim izni vermeniz yeterlidir.",
+    href: "https://www.sultanfatih.k12.tr/okul-haberleri//okul-haberleri/lgs-basarisini-odullendiriyoruz-10",
+    hrefLabel: "LGS başarısını ödüllendiriyoruz — haberi okuyun",
+  },
+  {
+    q: "Hangi kampüste hangi kademeler var?",
+    a: "Fatih Kampüsü: İlkokul, Ortaokul, Anadolu Lisesi ve Fen Lisesi. Beylikdüzü Kampüsü: Anaokulu, İlkokul ve Ortaokul. Detaylı karşılaştırma için Kademeler ve Kampüsler sayfalarımıza bakabilirsiniz.",
+  },
+  {
+    q: "Yabancı dil eğitimi nasıl belgelendiriliyor?",
+    a: "Yoğun İngilizce programında öğrencilerimizin kazanımları University of Cambridge ESOL sınavları ile takip edilip belgelenmektedir.",
+    href: "https://www.sultanfatih.k12.tr/okul-haberleri//okul-haberleri/yabanci-dil-egitimi-639",
+    hrefLabel: "Yabancı dil eğitimi haberimiz",
+  },
+  {
+    q: "Servis, yemek ve diğer destek hizmetleri hakkında bilgi alabilir miyim?",
+    a: "Destek hizmetlerine ilişkin güncel bilgilere resmî sitemizdeki Destek Hizmetleri sayfasından ve tanışma görüşmenizde öğrenci işlerimizden ulaşabilirsiniz.",
+    href: "https://www.sultanfatih.k12.tr/kurumsal/destek-hizmetleri",
+    hrefLabel: "Destek Hizmetleri sayfası",
+  },
+  {
+    q: "Kesin kayıtta hangi belgeler gerekir?",
+    a: "Gerekli belgelerin güncel listesi, öğrenci tanıma süreci sonrasında öğrenci işlerimiz tarafından size yazılı olarak iletilir; böylece eksiksiz ve tek seferde hazırlayabilirsiniz.",
+  },
+];
 
 /**
  * Hızlı erişim — mevcut veli/öğrencinin günlük alışkanlık yolunun (habit path)

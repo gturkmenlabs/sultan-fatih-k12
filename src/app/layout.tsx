@@ -93,8 +93,9 @@ export const metadata: Metadata = {
 
 /**
  * Schema.org EducationalOrganization — okul web sitesi rehberinin
- * (school-website-design-v3 §4A) zorunlu SEO kapısı. Doğrulanmamış
- * sokak adresi/telefon uydurulmaz; yalnızca kampüs adları ve ilçe/şehir.
+ * (school-website-design-v3 §4A) zorunlu SEO kapısı. Adres/telefon/e-posta
+ * resmî "Kampüslerimiz" sayfasından birebir doğrulanarak girilmiştir:
+ * https://www.sultanfatih.k12.tr/kurumsal/kampuslerimiz
  */
 const structuredData = {
   "@context": "https://schema.org",
@@ -113,12 +114,24 @@ const structuredData = {
         "https://www.instagram.com/sultanfatih",
         "https://www.youtube.com/sultanfatih",
       ],
+      email: "bilgi@sultanfatih.k12.tr",
+      telephone: "+90 212 531 22 82",
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+90 212 531 22 82",
+        email: "bilgi@sultanfatih.k12.tr",
+        contactType: "admissions",
+        areaServed: "TR",
+        availableLanguage: ["tr"],
+      },
       department: [
         {
           "@type": "School",
           name: "Sultan Fatih Koleji — Fatih Kampüsü",
+          telephone: "+90 212 531 22 82",
           address: {
             "@type": "PostalAddress",
+            streetAddress: "Derviş Ali Mahallesi Yahyazade Sokak No:7",
             addressLocality: "İstanbul",
             addressRegion: "Fatih",
             addressCountry: "TR",
@@ -127,8 +140,10 @@ const structuredData = {
         {
           "@type": "School",
           name: "Sultan Fatih Koleji — Beylikdüzü Kampüsü",
+          telephone: "+90 212 421 08 22",
           address: {
             "@type": "PostalAddress",
+            streetAddress: "Fatih Mahallesi Fatih",
             addressLocality: "İstanbul",
             addressRegion: "Beylikdüzü",
             addressCountry: "TR",

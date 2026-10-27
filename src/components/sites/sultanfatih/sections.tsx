@@ -4,10 +4,14 @@ import {
   ArrowUpRight,
   BookOpen,
   ClipboardList,
+  Cpu,
+  FlaskConical,
+  Globe,
   GraduationCap,
+  Languages,
   MonitorSmartphone,
 } from "lucide-react";
-import { NEWS, OFFICIAL, QUICK_ACCESS, VALUES, PARTNERS } from "./data";
+import { NEWS, OFFICIAL, PROGRAM_BADGES, QUICK_ACCESS, VALUES, PARTNERS } from "./data";
 import { Reveal } from "./reveal";
 
 /* ------------------------------------------------------------------ */
@@ -223,5 +227,48 @@ function SectionHeading({
         </a>
       )}
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Program rozetleri — haber/başarıyla belgelenen programlar           */
+/* ------------------------------------------------------------------ */
+
+const PROGRAM_ICONS = {
+  dil: Languages,
+  steam: Cpu,
+  dunya: Globe,
+  bilim: FlaskConical,
+} as const;
+
+export function ProgramBadges() {
+  return (
+    <section className="pb-4" aria-label="Öne çıkan programlarımız">
+      <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
+        <Reveal>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {PROGRAM_BADGES.map((badge) => {
+              const Icon = PROGRAM_ICONS[badge.icon];
+              return (
+                <article
+                  key={badge.title}
+                  className="rounded-cards bg-mist p-5"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-bumble-honey text-primary-navy">
+                    <Icon size={20} aria-hidden />
+                  </span>
+                  <h3 className="mt-4 text-body font-semibold text-primary-navy">
+                    {badge.title}
+                  </h3>
+                  <p className="mt-1.5 text-body-sm leading-relaxed text-text-main">
+                    {badge.desc}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }

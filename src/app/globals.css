@@ -2,15 +2,27 @@
 @import "tw-animate-css";
 
 @theme {
-  /* Colors — Bumble register (Sunlit honey editorial) */
-  --color-bumble-honey: #ffdb5b;
-  --color-pollen: #fff386;
-  --color-bumble-ink: #202020;
+  /* Colors — school-website-design-v3 tokenları (lacivert güven + altın başarı).
+     Eski Bumble token adları, rehber tokenlarıyla aynı değerlere eşlenir;
+     böylece mevcut bileşenler tek noktadan yeni palete geçer.
+     Rehber: --color-primary-navy #0F172A · --color-brand-blue #1E3A8A ·
+     --color-accent-gold #D97706 · --color-nature-green #059669 ·
+     --color-bg-light #F8FAFC · --color-text-main #334155 */
+  --color-primary-navy: #0f172a;
+  --color-brand-blue: #1e3a8a;
+  --color-accent-gold: #d97706;
+  --color-nature-green: #059669;
+  --color-bg-light: #f8fafc;
+  --color-text-main: #334155;
+  /* Geriye dönük eşlemeler (mevcut bileşenler) */
+  --color-bumble-honey: #fbbf24; /* altın zemin (amber 400) */
+  --color-pollen: #fde68a; /* açık altın (amber 200) */
+  --color-bumble-ink: #0f172a; /* = primary-navy */
   --color-paper-white: #ffffff;
-  --color-mist: #f3f3f3;
-  --color-charcoal: #3b3b3b;
-  --color-graphite: #575656;
-  --color-onyx: #343333;
+  --color-mist: #f8fafc; /* = bg-light */
+  --color-charcoal: #1e3a8a; /* = brand-blue (hover durumları) */
+  --color-graphite: #334155; /* = text-main */
+  --color-onyx: #0f172a; /* = primary-navy (katmanlar) */
 
   /* Typography — wired to next/font variables in layout.tsx */
   --font-bumblesans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
@@ -66,19 +78,20 @@
   --spacing-64: 64px;
   --spacing-96: 96px;
 
-  /* Border radius */
-  --radius-sm-el: 9px;
-  --radius-nav: 16px;
-  --radius-buttons: 16px;
-  --radius-cards: 24px;
+  /* Border radius — rehber: kart 16px, buton 8px */
+  --radius-sm-el: 8px;
+  --radius-nav: 12px;
+  --radius-buttons: 8px;
+  --radius-cards: 16px;
   --radius-photo: 16px;
   --radius-full: 1000px;
 
-  /* Shadows */
-  --shadow-sm: rgba(32, 32, 32, 0.12) 0px 1px 8px 0px;
+  /* Shadows — rehber değerleri */
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
 
-  /* Layout */
-  --page-max-width: 1200px;
+  /* Layout — rehber: container-max 1280px */
+  --page-max-width: 1280px;
 }
 
 @layer base {

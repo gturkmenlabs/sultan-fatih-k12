@@ -3,19 +3,19 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Menu, X } from "lucide-react";
-import { NAV_ITEMS } from "./data";
+import { usePathname } from "next/navigation";
+import { Globe, Menu, MonitorSmartphone, Phone, X } from "lucide-react";
+import { NAV_ITEMS, OFFICIAL } from "./data";
 
 /**
- * Yapışkan (sticky) üst bar — Bumble dili: beyaz logo kartı, aktif bölüm
- * beyaz pill, sağda koyu filled CTA. Yapışkan olması, her kaydırma
- * konumunda birincil eylemi (Ön Kayıt) tek tık uzağında tutar (Fogg
- * "Ability"). Aktif pill scrollspy ile gerçek bölümü gösterir.
+ * Yapışkan (sticky) üst bar — altın zemin üzerinde beyaz logo kartı,
+ * aktif sayfa beyaz pill, sağda lacivert Ön Kayıt CTA'sı.
+ * Aktif durumu URL'den (usePathname) okur; her sayfada tutarlıdır.
  */
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -24,26 +24,8 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scrollspy — yalnızca sayfada bulunan bölümleri gözler (ana sayfa)
-  useEffect(() => {
-    const sections = NAV_ITEMS.map((item) =>
-      document.getElementById(item.sectionId)
-    ).filter((el): el is HTMLElement => el !== null);
-    if (sections.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        }
-      },
-      { rootMargin: "-35% 0px -55% 0px" }
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
-  const linkClass = (sectionId: string) =>
-    active === sectionId
+  const linkClass = (href: string) =>
+    pathname === href
       ? "inline-block rounded-nav bg-paper-white px-5 py-2.5 text-body font-medium text-bumble-ink shadow-sm"
       : "inline-block rounded-nav px-5 py-2.5 text-body font-medium text-bumble-ink/80 transition-colors hover:bg-paper-white/50 hover:text-bumble-ink";
 
@@ -74,11 +56,11 @@ export function SiteNav() {
 
         <ul className="mx-auto hidden items-center gap-1 lg:flex">
           {NAV_ITEMS.map((item) => (
-            <li key={item.sectionId}>
+            <li key={item.href}>
               <Link
                 href={item.href}
-                aria-current={active === item.sectionId ? "true" : undefined}
-                className={linkClass(item.sectionId)}
+                aria-current={pathname === item.href ? "page" : undefined}
+                className={linkClass(item.href)}
               >
                 {item.label}
               </Link>
@@ -99,6 +81,7 @@ export function SiteNav() {
           </a>
           <Link
             href="/on-kayit"
+            aria-current={pathname === "/on-kayit" ? "page" : undefined}
             className="rounded-buttons bg-bumble-ink px-6 py-3 text-body font-medium tracking-[0.016em] text-paper-white transition-colors hover:bg-charcoal"
           >
             Ön Kayıt
@@ -121,18 +104,39 @@ export function SiteNav() {
           <div id="sfk-mobile-menu" className="rounded-cards bg-paper-white p-4 shadow-sm">
             <ul className="flex flex-col gap-1">
               {NAV_ITEMS.map((item) => (
-                <li key={item.sectionId}>
+                <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    aria-current={pathname === item.href ? "page" : undefined}
                     className={`block rounded-nav px-4 py-3 text-body font-medium text-bumble-ink transition-colors hover:bg-mist ${
-                      active === item.sectionId ? "bg-mist" : ""
+                      pathname === item.href ? "bg-mist" : ""
                     }`}
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
+              <li className="mt-2 border-t border-bumble-ink/10 pt-3">
+                <a
+                  href={OFFICIAL.k12net}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-nav px-4 py-3 text-body font-medium text-bumble-ink transition-colors hover:bg-mist"
+                >
+                  <MonitorSmartphone size={18} aria-hidden />
+                  K12Net Veli Portalı
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+902125312282"
+                  className="flex items-center gap-2 rounded-nav px-4 py-3 text-body font-medium text-bumble-ink transition-colors hover:bg-mist"
+                >
+                  <Phone size={18} aria-hidden />
+                  Hemen ara: 0212 531 22 82
+                </a>
+              </li>
             </ul>
           </div>
         </div>

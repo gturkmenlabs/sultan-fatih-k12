@@ -6,6 +6,21 @@ import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import { GALLERY } from "./data";
 
 /**
+ * Bento yerleşimi (8 fotoğraf): 1 büyük + 1 geniş + 6 standart hücre.
+ * Mobilde ilk fotoğraf tam genişlikte açılır.
+ */
+const BENTO_SPANS = [
+  "col-span-2 aspect-[16/9] md:col-span-2 md:row-span-2 md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+  "aspect-[4/3] md:col-span-2 md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+  "aspect-[4/3] md:aspect-auto md:h-full",
+];
+
+/**
  * "Sultan Fatih'te Yaşam" galerisi + sayfa içi lightbox.
  * Kaynak sitedeki Fancybox davranışının erişilebilir karşılığı:
  * ESC / ok tuşları, önceki-sonraki, odak yönetimi, scroll kilidi.
@@ -54,7 +69,7 @@ export function LifeGallery() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 md:auto-rows-[210px] md:grid-cols-4">
           {GALLERY.map((photo, i) => (
             <button
               key={photo.thumb}
@@ -62,7 +77,7 @@ export function LifeGallery() {
               onClick={() => setOpenIndex(i)}
               aria-label={`${photo.alt} — büyüt`}
               aria-haspopup="dialog"
-              className="group relative block aspect-[4/3] overflow-hidden rounded-cards shadow-sm"
+              className={`group relative block overflow-hidden rounded-cards shadow-sm ${BENTO_SPANS[i] ?? "aspect-[4/3]"}`}
             >
               <Image
                 src={photo.thumb}

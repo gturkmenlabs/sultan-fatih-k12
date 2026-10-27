@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CAMPUS_NAMES, LEVELS } from "@/components/sites/sultanfatih/data";
+import { APPLICATION_TYPES, CAMPUS_NAMES, LEVELS } from "@/components/sites/sultanfatih/data";
 
 /**
  * POST /api/on-kayit — ön kayıt (lead) kabul ucu.
@@ -53,6 +53,7 @@ export async function POST(request: Request) {
   }
 
   const lead = {
+    applicationType: str(body.applicationType, 60),
     parentName: str(body.parentName, 80),
     phone: str(body.phone, 24),
     email: str(body.email, 120),
@@ -63,6 +64,9 @@ export async function POST(request: Request) {
     note: str(body.note, 500),
     contactConsent: body.contactConsent === true,
   };
+  if (!(APPLICATION_TYPES as readonly string[]).includes(lead.applicationType)) {
+    lead.applicationType = "Ön kayıt";
+  }
   const kvkkConsent = body.kvkkConsent === true;
 
   const errors: Record<string, string> = {};
