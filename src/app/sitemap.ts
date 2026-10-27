@@ -11,6 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/kademeler", priority: 0.85, changeFrequency: "monthly" },
     { path: "/kampusler", priority: 0.85, changeFrequency: "monthly" },
     { path: "/kurumsal", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/kurumsal/genel-mudurun-mesaji", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/kurumsal/vizyon-misyon", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/kurumsal/e-safety", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/kurumsal/okul-marsimiz", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/kurumsal/destek-hizmetleri", priority: 0.6, changeFrequency: "monthly" },
     { path: "/iletisim", priority: 0.8, changeFrequency: "monthly" },
   ];
   return pages.map(({ path, priority, changeFrequency }) => ({

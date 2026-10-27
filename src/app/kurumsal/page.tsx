@@ -29,25 +29,25 @@ const CORPORATE_LINKS = [
     icon: Sparkles,
     title: "Genel Müdürün Mesajı",
     desc: "Kurumumuzun eğitim anlayışını yönetimimizin kaleminden okuyun.",
-    href: "https://www.sultanfatih.k12.tr/kurumsal/genel-mudurun-mesaji",
+    href: "/kurumsal/genel-mudurun-mesaji",
   },
   {
     icon: Landmark,
     title: "Vizyon & Misyon",
     desc: "Sultan Fatih'in kurumsal hedefleri ve eğitim ilkeleri.",
-    href: "https://www.sultanfatih.k12.tr/kurumsal/vizyon-misyon",
+    href: "/kurumsal/vizyon-misyon",
   },
   {
     icon: ShieldCheck,
     title: "E-Safety",
     desc: "Öğrencilerimizin dijital güvenliğine ilişkin yaklaşımımız.",
-    href: "https://www.sultanfatih.k12.tr/kurumsal/e-safety",
+    href: "/kurumsal/e-safety",
   },
   {
     icon: Music,
     title: "Okul Marşı",
     desc: "Sultan Fatih ruhunu anlatan marşımızı dinleyin/okuyun.",
-    href: "https://www.sultanfatih.k12.tr/kurumsal/okul-marsimiz",
+    href: "/kurumsal/okul-marsimiz",
   },
   {
     icon: BookOpen,
@@ -59,7 +59,7 @@ const CORPORATE_LINKS = [
     icon: HeartHandshake,
     title: "Destek Hizmetleri",
     desc: "Servis, yemek ve diğer destek süreçlerine dair bilgiler.",
-    href: "https://www.sultanfatih.k12.tr/kurumsal/destek-hizmetleri",
+    href: "/kurumsal/destek-hizmetleri",
   },
 ] as const;
 
@@ -77,16 +77,15 @@ export default function CorporatePage() {
         <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
           <PageSectionHeading
             title="Kurumsal sayfalarımız"
-            desc="Derinlemesine kurumsal içerikler resmî sayfalarımızda yayımlanır; aşağıdaki kartlar sizi tek tıkla ilgili sayfaya taşır."
+            desc="Kurumsal başlıklarımızı aşağıdaki sayfalardan inceleyebilirsiniz."
           />
           <Reveal>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {CORPORATE_LINKS.map(({ icon: Icon, title, desc, href }) => (
-                <a
+                <Link
                   key={title}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="group rounded-cards bg-paper-white p-6 shadow-sm ring-1 ring-primary-navy/5 transition-transform hover:-translate-y-0.5"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-bumble-honey text-primary-navy">
@@ -101,7 +100,7 @@ export default function CorporatePage() {
                     />
                   </h3>
                   <p className="mt-1.5 text-body-sm leading-relaxed text-text-main">{desc}</p>
-                </a>
+                </Link>
               ))}
             </div>
           </Reveal>
