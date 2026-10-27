@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Camera, MapPin, Phone } from "lucide-react";
 import { PageShell, PageSectionHeading } from "@/components/sites/sultanfatih/page-shell";
+import { CampusPreference } from "@/components/sites/sultanfatih/campus-strip";
 import { PhotoTour } from "@/components/sites/sultanfatih/photo-tour";
 import { Reveal } from "@/components/sites/sultanfatih/reveal";
 import { CAMPUS_DETAIL } from "@/components/sites/sultanfatih/data";
@@ -22,7 +23,7 @@ export default function CampusesPage() {
       description="Fatih ve Beylikdüzü kampüslerimizde aynı eğitim anlayışı, her kademeye uygun öğrenme ortamlarıyla buluşur. Önce fotoğraflarla gezin, sonra yerinde görün."
     >
       {/* Kampüs kartları */}
-      <section className="py-16" aria-label="Kampüsler">
+      <section id="kampusler" className="py-16" aria-label="Kampüsler">
         <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
           <PageSectionHeading
             title="Kampüslerimiz"
@@ -77,6 +78,8 @@ export default function CampusesPage() {
                         </li>
                       ))}
                     </ul>
+
+                    <CampusPreference name={campus.name} />
 
                     <div className="mt-6 flex flex-wrap items-center gap-3">
                       <Link
