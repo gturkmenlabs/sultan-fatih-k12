@@ -14,8 +14,10 @@ import {
 } from "lucide-react";
 import { PageShell, PageSectionHeading } from "@/components/sites/sultanfatih/page-shell";
 import { Reveal } from "@/components/sites/sultanfatih/reveal";
-import { ProgramBadges } from "@/components/sites/sultanfatih/sections";
-import { VALUES } from "@/components/sites/sultanfatih/data";
+import { ValuesGrid, NewsSection, PartnersStrip, ProgramBadges } from "@/components/sites/sultanfatih/sections";
+import { AchievementsWall } from "@/components/sites/sultanfatih/achievements";
+import { LifeGallery } from "@/components/sites/sultanfatih/gallery";
+import { ParentToday } from "@/components/sites/sultanfatih/parent-today";
 
 export const metadata: Metadata = {
   title: "Kurumsal",
@@ -64,16 +66,27 @@ const CORPORATE_LINKS = [
 ] as const;
 
 export default function CorporatePage() {
-  const valuesCard = VALUES.find((v) => v.title === "Değerler Eğitimi");
-
   return (
     <PageShell
       eyebrow="Kurumsal"
-      title="Köklü gelenek, yenilikçi eğitim"
+      title="Kurumumuzu Tanıyın"
       description="Özel Sultan Fatih Eğitim Kurumları; Fatih ve Beylikdüzü kampüslerinde anaokulundan fen lisesine, akademik başarıyı değerler eğitimiyle birlikte büyütür."
     >
+      <nav aria-label="Kurum tanıtımı bölümleri" className="border-b border-primary-navy/10 bg-mist">
+        <div className="mx-auto flex max-w-[var(--page-max-width)] flex-wrap gap-2 px-6 py-5 md:px-8">
+          {[
+            ["Kurumsal", "kurumsal-sayfalar"],
+            ["Eğitim ve Değerler", "egitim"],
+            ["Başarılarımız", "basarilar"],
+            ["Haberler", "haberler"],
+            ["Okulda Yaşam", "yasam"],
+          ].map(([label, id]) => (
+            <a key={id} href={`#${id}`} className="rounded-full bg-paper-white px-4 py-2 text-body-sm font-medium text-primary-navy shadow-sm transition-colors hover:bg-pollen">{label}</a>
+          ))}
+        </div>
+      </nav>
       {/* Kurumsal sayfa kartları */}
-      <section className="py-16" aria-label="Kurumsal sayfalar">
+      <section id="kurumsal-sayfalar" className="py-16" aria-label="Kurumsal sayfalar">
         <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
           <PageSectionHeading
             title="Kurumsal sayfalarımız"
@@ -107,54 +120,12 @@ export default function CorporatePage() {
         </div>
       </section>
 
-      {/* Değerlerimiz */}
-      {valuesCard && (
-        <section className="bg-mist py-16" aria-label="Değerlerimiz">
-          <div className="mx-auto grid max-w-[var(--page-max-width)] items-center gap-10 px-6 md:px-8 lg:grid-cols-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-cards shadow-sm">
-              <Image
-                src={valuesCard.image}
-                alt="Değerler eğitimi — Sultan Fatih"
-                fill
-                sizes="(min-width: 1024px) 50vw, 92vw"
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-heading font-bold text-primary-navy">Değerlerimiz</h2>
-              <p className="mt-4 text-body leading-relaxed text-text-main">
-                Akademik başarı kadar karakter gelişimini de önemseriz.
-                Değerler eğitimi programımız; milli ve manevi değerleri,
-                evrensel erdemlerle birlikte günlük okul yaşamının parçası
-                hâline getirir.
-              </p>
-              <ul className="mt-6 space-y-3">
-                {valuesCard.items.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-body text-primary-navy">
-                    <span aria-hidden className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bumble-honey text-caption font-bold">
-                      ✓
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={valuesCard.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-7 inline-block rounded-buttons bg-primary-navy px-6 py-3 text-body font-medium text-paper-white transition-colors hover:bg-brand-blue"
-              >
-                Değerler Eğitimi sayfamız
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Program rozetleri */}
-      <div className="pt-16">
-        <ProgramBadges />
-      </div>
+      <ValuesGrid />
+      <ProgramBadges />
+      <AchievementsWall />
+      <NewsSection />
+      <LifeGallery />
+      <ParentToday />
 
       {/* Topluluk: mezunlar & kariyer */}
       <section className="py-16" aria-label="Mezunlar ve kariyer">
@@ -171,7 +142,7 @@ export default function CorporatePage() {
                 takip edin.
               </p>
               <Link
-                href="/#basarilar"
+                href="/kurumsal#basarilar"
                 className="mt-5 inline-block rounded-buttons bg-bumble-honey px-5 py-2.5 text-body-sm font-semibold text-primary-navy transition-colors hover:bg-pollen"
               >
                 Başarı öykülerine göz atın
@@ -224,6 +195,7 @@ export default function CorporatePage() {
           </div>
         </div>
       </section>
+      <PartnersStrip />
     </PageShell>
   );
 }

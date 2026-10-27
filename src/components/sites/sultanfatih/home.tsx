@@ -2,23 +2,13 @@ import { AnnouncementBar } from "./announcement";
 import { SiteNav } from "./nav";
 import { Hero } from "./hero";
 import { CampusStrip } from "./campus-strip";
-import { QuickAccessStrip, ValuesGrid, NewsSection, PartnersStrip, ProgramBadges } from "./sections";
-import { ParentToday } from "./parent-today";
-import { AchievementsWall } from "./achievements";
-import { LifeGallery } from "./gallery";
+import { QuickAccessStrip } from "./sections";
 import { LeadCta } from "./lead-cta";
 import { SiteFooter } from "./footer";
 import { FloatingActions } from "./floating-actions";
 import { CookieConsent } from "./cookie-consent";
 
-/**
- * Sultan Fatih K.12 ana sayfa — Kanca Modeli akışı (etik/"Kolaylaştırıcı"):
- * duyuru şeridi (tetikleyici) → başarı hero'su (değişken ödül) →
- * kampüs tercihi (yatırım) → hızlı erişim (mevcut veli alışkanlık yolu) →
- * eğitim → başarı duvarı → haberler → galeri lightbox →
- * ön kayıt bandı (sürtünmesiz eylem) → footer.
- * Detay: docs/hook-model-uygulama.md
- */
+/** Sade ana sayfa: tanıtım, kampüs seçimi, hızlı erişim ve başvuru. */
 export default function SultanFatihHome() {
   return (
     <div id="top" className="min-h-screen bg-paper-white">
@@ -28,14 +18,7 @@ export default function SultanFatihHome() {
         <Hero />
         <CampusStrip />
         <QuickAccessStrip />
-        <ParentToday />
-        <ValuesGrid />
-        <ProgramBadges />
-        <AchievementsWall />
-        <NewsSection />
-        <LifeGallery />
         <LeadCta />
-        <PartnersStrip />
       </main>
       <SiteFooter />
       {/* Mobil sabit CTA barının footer içeriğini örtmemesi için boşluk */}
