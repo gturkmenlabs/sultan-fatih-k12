@@ -49,15 +49,15 @@
   --text-heading-sm--line-height: 1.25;
   --text-heading-sm--letter-spacing: 0.018em;
 
-  --text-heading: 32px;
+  --text-heading: clamp(26px, 3vw, 32px);
   --text-heading--line-height: 1.2;
   --text-heading--letter-spacing: 0.02em;
 
-  --text-heading-lg: 40px;
+  --text-heading-lg: clamp(30px, 4vw, 40px);
   --text-heading-lg--line-height: 1.18;
   --text-heading-lg--letter-spacing: 0.02em;
 
-  --text-display: clamp(48px, 7vw, 68px);
+  --text-display: clamp(34px, 5.5vw, 64px);
   --text-display--line-height: 1;
   --text-display--letter-spacing: 0.02em;
 
@@ -65,18 +65,7 @@
   --text-hero-mark--line-height: 0.85;
   --text-hero-mark--letter-spacing: 0.02em;
 
-  /* Spacing */
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-36: 36px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-96: 96px;
+  /* Tailwind’in standart 4px boşluk ölçeğini koru. */
 
   /* Border radius — rehber: kart 16px, buton 8px */
   --radius-sm-el: 8px;
@@ -102,6 +91,19 @@
   }
   body {
     @apply bg-paper-white text-bumble-ink font-bumblesans antialiased;
+    overflow-wrap: break-word;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled), select {
+    cursor: pointer;
+  }
+  input, select, textarea {
+    font-size: max(16px, 1em);
   }
   ::selection {
     background: var(--color-bumble-ink);
@@ -125,8 +127,8 @@
 /* ------------------------------------------------------------------ */
 
 .sfk-reveal {
-  opacity: 0;
-  transform: translateY(16px);
+  opacity: 1;
+  transform: none;
   transition:
     opacity 600ms ease,
     transform 600ms ease;
@@ -209,5 +211,14 @@
   }
   .sfk-slide {
     transition: opacity 200ms ease;
+  }
+}
+
+/* Hareket hassasiyetinde hover ve geçiş efektlerini de sınırla. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

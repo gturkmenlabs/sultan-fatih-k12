@@ -91,7 +91,7 @@ export function AchievementsWall() {
                       alt={slide.label}
                       fill
                       sizes="(min-width: 768px) 50vw, 92vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-contain"
                     />
                   </div>
                   <div className="flex items-start gap-3 px-2 pb-1 pt-4">

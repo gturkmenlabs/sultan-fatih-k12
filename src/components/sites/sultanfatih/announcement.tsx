@@ -59,7 +59,7 @@ export function AnnouncementBar() {
               ) : (
                 <Sparkles size={16} aria-hidden className="shrink-0 text-bumble-honey" />
               )}
-              <p className="min-w-0 truncate text-caption">
+              <p className="hidden min-w-0 truncate text-caption sm:block">
                 {isResume
                   ? "Ön kayıt taslağınız bu cihazda hazır bekliyor."
                   : "2026–2027 ön kayıt dönemi başladı."}

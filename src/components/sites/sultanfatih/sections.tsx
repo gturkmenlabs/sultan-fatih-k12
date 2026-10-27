@@ -144,14 +144,14 @@ export function NewsSection() {
                 href={news.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group grid grid-cols-[auto_1fr] items-center gap-6 rounded-cards bg-paper-white p-6 shadow-sm transition-transform hover:-translate-y-0.5"
+                className="group grid grid-cols-1 items-center gap-5 sm:grid-cols-[auto_minmax(0,1fr)] md:grid-cols-1 xl:grid-cols-[auto_minmax(0,1fr)] rounded-cards bg-paper-white p-6 shadow-sm transition-transform hover:-translate-y-0.5"
               >
-                <div className="relative h-36 w-44 overflow-hidden rounded-cards">
+                <div className="relative aspect-video w-full overflow-hidden rounded-cards sm:aspect-auto sm:h-32 sm:w-36 md:aspect-video md:h-auto md:w-full xl:aspect-auto xl:h-32 xl:w-36">
                   <Image
                     src={news.image}
                     alt={news.title}
                     fill
-                    sizes="176px"
+                    sizes="(min-width: 1280px) 144px, (min-width: 768px) 45vw, (min-width: 640px) 144px, 85vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>

@@ -55,10 +55,10 @@ export interface AchievementSlide {
 export const ACHIEVEMENT_SLIDES: AchievementSlide[] = [
   { src: "/sites/sultanfatih/hero/hero-01.jpg", label: "T.C. Gençlik ve Spor Bakanlığı Bilgi Yarışması — İstanbul Şampiyonu", href: "https://www.sultanfatih.k12.tr/sultan-fatih-anadolu-lisesi-fen-lisesi/t-c-genclik-ve-spor-bakanligi-bilgi-yarismasinda-istanbul-sampiyonuyuz--4318", category: "Akademik & Bilim" },
   { src: "/sites/sultanfatih/hero/hero-02.jpg", label: "VEX Robotics Türkiye Finalleri'nde Şampiyonluk", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ilkokulu/sultan-fatih-koleji-nden-turkiye-vex-robotics-finalleri-nde-sampiyonluk-4313", category: "Robotik & Teknoloji" },
-  { src: "/sites/sultanfatih/hero/hero-03.jpeg", label: "Gençlik Merkezi Tanıtım Günümüz", href: "#", category: "Okul Yaşamı" },
+  { src: "/sites/sultanfatih/hero/hero-03.jpeg", label: "Gençlik Merkezi Tanıtım Günümüz", href: "/#basarilar", category: "Okul Yaşamı" },
   { src: "/sites/sultanfatih/hero/hero-04.jpg", label: "SFK Drone Takımı'na Best Pilot Team Award", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/-sfk-dron-takimimiza-best-pilot-team-award-odulu-4312", category: "Robotik & Teknoloji" },
   { src: "/sites/sultanfatih/hero/hero-05.png", label: "Kelimelerinin Gücüyle Gelen Birincilik", href: "https://www.sultanfatih.k12.tr/sultan-fatih-anadolu-lisesi-fen-lisesi/kelimelerin-gucuyle-gelen-birincilik-4303", category: "Akademik & Bilim" },
-  { src: "/sites/sultanfatih/hero/hero-06.png", label: "Robotun Fatihleri — Robotik Turnuva Zaferi", href: "https://www.sultanfatih.k12.tr//sultan-fatih-ortaokulu/robotun-fatihleri-4301", category: "Robotik & Teknoloji" },
+  { src: "/sites/sultanfatih/hero/hero-06.png", label: "Robotun Fatihleri — Robotik Turnuva Zaferi", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/robotun-fatihleri-4301", category: "Robotik & Teknoloji" },
   { src: "/sites/sultanfatih/hero/hero-07.jpg", label: "Uluslararası Alanda Büyük Başarı", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/uluslararasi-alanda-buyuk-basari-4249", category: "Akademik & Bilim" },
   { src: "/sites/sultanfatih/hero/hero-08.jpeg", label: "BİLSEM Yetenek Avcıları", href: "https://www.sultanfatih.k12.tr/beylikduzu-sultan-fatih-ilkokulu/bilsem-4218", category: "Akademik & Bilim" },
   { src: "/sites/sultanfatih/hero/hero-09.png", label: "Robot Turnuvasında Birincilik ve 3 Kupa", href: "https://www.sultanfatih.k12.tr/sultan-fatih-ortaokulu/robot-turnuvasinda-birincilik-ve-3-kupa-4174", category: "Robotik & Teknoloji" },
@@ -67,7 +67,7 @@ export const ACHIEVEMENT_SLIDES: AchievementSlide[] = [
   { src: "/sites/sultanfatih/hero/hero-12.jpg", label: "Ön Kayıt Formunuz Hazır", href: "/on-kayit", category: "Kayıt & Tanıtım" },
   { src: "/sites/sultanfatih/hero/hero-13.png", label: "YKS Gurur Tablomuz", href: "https://www.sultanfatih.k12.tr/sultan-fatih-anadolu-lisesi-fen-lisesi/yks-gurur-tablomuz-3871", category: "Sınav Başarısı" },
   { src: "/sites/sultanfatih/hero/hero-14.jpg", label: "Tanıtım Kataloğumuzu İnceleyin", href: OFFICIAL.catalog, category: "Kayıt & Tanıtım" },
-  { src: "/sites/sultanfatih/hero/hero-15.png", label: "İstanbul Bilgi Yarışması Şampiyonluğu", href: "#", category: "Akademik & Bilim" },
+  { src: "/sites/sultanfatih/hero/hero-15.png", label: "İstanbul Bilgi Yarışması Şampiyonluğu", href: "/#basarilar", category: "Akademik & Bilim" },
 ];
 
 export interface CampusItem {
@@ -140,7 +140,7 @@ export const VALUES: ValueCard[] = [
   {
     image: "/sites/sultanfatih/values/s3.jpg",
     title: "Kulüplerimiz",
-    href: "#",
+    href: "/kademeler",
     items: ["Robot & Lego Kulübü", "Deney Kulübü", "Satranç Kulübü", "Tiyatro Kulübü", "Zeka Oyunları Kulübü"],
   },
   {

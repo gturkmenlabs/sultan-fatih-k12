@@ -34,7 +34,7 @@ export function CampusStrip() {
                 <Link
                   key={item.title}
                   href={item.href}
-                  className="group block overflow-hidden rounded-cards bg-pollen p-3 shadow-sm transition-transform hover:-translate-y-1"
+                  className="group flex h-full flex-col overflow-hidden rounded-cards bg-pollen p-3 shadow-sm transition-transform hover:-translate-y-1"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-mist">
                     <Image
@@ -63,7 +63,7 @@ export function CampusStrip() {
             return (
               <article
                 key={item.title}
-                className={`overflow-hidden rounded-cards bg-paper-white p-3 shadow-sm transition-transform hover:-translate-y-1 ${
+                className={`flex h-full flex-col overflow-hidden rounded-cards bg-paper-white p-3 shadow-sm transition-transform hover:-translate-y-1 ${
                   isPreferred ? "ring-2 ring-bumble-ink" : ""
                 }`}
               >
@@ -89,8 +89,8 @@ export function CampusStrip() {
                     </span>
                   )}
                 </a>
-                <div className="px-3 pb-1 pt-4">
-                  <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-1 flex-col px-3 pb-1 pt-4">
+                  <div className="mb-4 flex items-start justify-between gap-3">
                     <div>
                       <h2 className="text-subheading font-semibold text-bumble-ink">
                         {item.title}
@@ -111,7 +111,7 @@ export function CampusStrip() {
                     type="button"
                     onClick={() => choose(item.title)}
                     aria-pressed={isPreferred}
-                    className={`mt-4 w-full rounded-buttons px-4 py-2.5 text-caption font-semibold transition-colors ${
+                    className={`mt-auto w-full rounded-buttons px-4 py-2.5 text-caption font-semibold transition-colors ${
                       isPreferred
                         ? "bg-bumble-ink text-paper-white hover:bg-charcoal"
                         : "bg-mist text-bumble-ink hover:bg-bumble-honey"

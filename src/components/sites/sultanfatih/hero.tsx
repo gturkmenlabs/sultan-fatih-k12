@@ -158,7 +158,7 @@ export function Hero() {
                     height={IMAGE_DIMENSIONS[slide.src].height}
                     priority={i === 0}
                     sizes="(min-width: 1280px) 1216px, 92vw"
-                    className="mx-auto h-auto max-w-full object-contain"
+                    className="mx-auto h-auto max-h-[65svh] w-auto max-w-full object-contain"
                   />
                 </a>
               ))}
@@ -188,7 +188,7 @@ export function Hero() {
             <div
               role="group"
               aria-label="Başarı gösterimi ilerlemesi"
-              className="flex flex-1 items-center gap-1.5"
+              className="flex min-w-0 flex-1 items-center gap-1"
             >
               {ACHIEVEMENT_SLIDES.map((slide, i) => (
                 <button
@@ -197,7 +197,7 @@ export function Hero() {
                   onClick={() => setIndex(i)}
                   aria-label={`${i + 1}. başarı sayfası — ${slide.label}`}
                   aria-current={i === index}
-                  className={`h-1.5 flex-1 rounded-full transition-colors ${
+                  className={`relative h-8 min-w-0 flex-1 rounded-full border-y-[13px] border-transparent bg-clip-padding transition-colors ${
                     i === index
                       ? "bg-bumble-ink"
                       : "bg-bumble-ink/25 hover:bg-bumble-ink/50"
