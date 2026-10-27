@@ -1,11 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
-import { CheckCircle2, ChevronLeft, ChevronRight, Medal, Bot, Trophy } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, ChevronLeft, ChevronRight, Medal, Bot, ShieldCheck, Trophy } from "lucide-react";
 import { ACHIEVEMENT_SLIDES } from "./data";
 
 const SLIDE_MS = 4500;
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+  const mq = window.matchMedia(REDUCED_MOTION_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+function getReducedMotion() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+function getServerReducedMotion() {
+  return false;
+}
 
 const STAT_PILLS = [
   { icon: Trophy, label: "LGS 2024 Başarı Tablosu" },
@@ -20,15 +34,14 @@ const STAT_PILLS = [
 export function Hero() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(true);
+  // prefers-reduced-motion: otomatik geçişi kapat (elle ilerletilebilir)
+  const prefersReduced = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion
+  );
+  const autoPlay = !prefersReduced;
   const count = ACHIEVEMENT_SLIDES.length;
-
-  // prefers-reduced-motion: otomatik geçişi kapat, dursun (elle ilerletilebilir)
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setAutoPlay(false);
-    }
-  }, []);
 
   // Sırayla otomatik geçiş — hover/focus'ta duru
   useEffect(() => {
@@ -45,7 +58,7 @@ export function Hero() {
   const active = ACHIEVEMENT_SLIDES[index];
 
   return (
-    <section className="relative bg-bumble-honey pb-24 pt-32 md:pb-32 md:pt-40">
+    <section aria-label="Tanıtım" className="relative bg-bumble-honey pb-24 pt-12 md:pb-32 md:pt-16">
       <div className="mx-auto grid max-w-[var(--page-max-width)] items-center gap-16 px-6 md:px-8 lg:grid-cols-[1.05fr_1fr]">
         {/* Sol: wordmark + tanıtım */}
         <div>
@@ -59,14 +72,12 @@ export function Hero() {
             sırayla ve animasyonlu olarak akar.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="https://www.sultanfatih.k12.tr/iletisim-bilgileri/on-kayit-formu"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/on-kayit"
               className="rounded-buttons bg-bumble-ink px-8 py-4 text-body font-medium tracking-[0.016em] text-paper-white transition-colors hover:bg-charcoal"
             >
               Ön Kayıt Yap
-            </a>
+            </Link>
             <a
               href="https://www.sultanfatih.k12.tr/Uploads/files/katalog.pdf"
               className="rounded-buttons px-6 py-4 text-body font-medium tracking-[0.016em] text-bumble-ink underline decoration-bumble-ink/40 decoration-2 underline-offset-4 transition-colors hover:decoration-bumble-ink"
@@ -74,6 +85,10 @@ export function Hero() {
               Tanıtım Kataloğu
             </a>
           </div>
+          <p className="mt-4 flex max-w-md items-center gap-2 text-caption text-bumble-ink/70">
+            <ShieldCheck size={16} aria-hidden className="shrink-0" />
+            Ön kayıt 3 kısa adımdan oluşur; bilgileriniz KVKK kapsamında, yalnızca onayınızla işlenir.
+          </p>
           <ul className="mt-8 flex flex-wrap gap-2" aria-label="Öne çıkan başarılar">
             {STAT_PILLS.map(({ icon: Icon, label }) => (
               <li
@@ -108,8 +123,9 @@ export function Hero() {
                 <a
                   key={slide.src}
                   href={slide.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(slide.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   aria-hidden={i !== index}
                   tabIndex={i === index ? 0 : -1}
                   className={`sfk-slide absolute inset-0 ${i === index ? "is-active" : ""}`}

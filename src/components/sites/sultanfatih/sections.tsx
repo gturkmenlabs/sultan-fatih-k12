@@ -1,48 +1,70 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
-import { CAMPUS, NEWS, VALUES, GALLERY, PARTNERS } from "./data";
+import Link from "next/link";
+import {
+  ArrowUpRight,
+  BookOpen,
+  ClipboardList,
+  GraduationCap,
+  MonitorSmartphone,
+} from "lucide-react";
+import { NEWS, OFFICIAL, QUICK_ACCESS, VALUES, PARTNERS } from "./data";
+import { Reveal } from "./reveal";
 
 /* ------------------------------------------------------------------ */
-/* Kampüs şeridi — honey hero'ya overlap eden beyaz kart provaları     */
+/* Hızlı erişim — mevcut velinin günlük alışkanlık yolu (tek tık)      */
 /* ------------------------------------------------------------------ */
 
-export function CampusStrip() {
+const QUICK_ICONS = {
+  portal: MonitorSmartphone,
+  eokul: GraduationCap,
+  katalog: BookOpen,
+  kayit: ClipboardList,
+} as const;
+
+export function QuickAccessStrip() {
   return (
-    <section className="relative z-10 -mt-16" aria-label="Kampüsler">
-      <div className="mx-auto grid max-w-[var(--page-max-width)] gap-6 px-6 md:grid-cols-3 md:px-8">
-        {CAMPUS.map((item, i) => {
-          const isCta = i === CAMPUS.length - 1;
-          return (
-            <a
-              key={item.title}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group block overflow-hidden rounded-cards p-3 shadow-sm transition-transform hover:-translate-y-1 ${
-                isCta ? "bg-pollen" : "bg-paper-white"
-              }`}
-            >
-              <div className="relative h-48 overflow-hidden rounded-cards">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 92vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex items-center justify-between px-3 pb-1 pt-4">
-                <div>
-                  <h2 className="text-subheading font-semibold text-bumble-ink">
-                    {item.title}
-                  </h2>
-                  <p className="mt-1 text-caption text-graphite">{item.caption}</p>
-                </div>
-                <ArrowUpRight size={20} className="text-bumble-ink" aria-hidden />
-              </div>
-            </a>
-          );
-        })}
+    <section className="pt-12" aria-label="Hızlı erişim">
+      <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
+        <Reveal>
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {QUICK_ACCESS.map((item) => {
+              const Icon = QUICK_ICONS[item.icon];
+              const content = (
+                <>
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-bumble-honey text-bumble-ink">
+                    <Icon size={20} aria-hidden />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-1 text-body-sm font-semibold text-bumble-ink">
+                      {item.title}
+                      <ArrowUpRight size={15} aria-hidden className="shrink-0 text-graphite" />
+                    </span>
+                    <span className="mt-0.5 block text-caption leading-snug text-graphite">
+                      {item.desc}
+                    </span>
+                  </span>
+                </>
+              );
+              const className =
+                "flex items-center gap-3 rounded-cards bg-paper-white p-4 shadow-sm transition-transform hover:-translate-y-0.5";
+              return item.external ? (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {content}
+                </a>
+              ) : (
+                <Link key={item.title} href={item.href} className={className}>
+                  {content}
+                </Link>
+              );
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -54,14 +76,18 @@ export function CampusStrip() {
 
 export function ValuesGrid() {
   return (
-    <section className="py-16" aria-label="Eğitim ve değerler">
+    <section id="egitim" className="py-16" aria-label="Eğitim ve değerler">
       <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
         <SectionHeading title="Eğitimde Sultan Fatih" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {VALUES.map((card) => (
-            <Card key={card.title}>
+        <Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {VALUES.map((card) => (
               <a
+                key={card.title}
                 href={card.href}
+                {...(card.href.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className="group relative block h-96 overflow-hidden rounded-cards"
               >
                 <Image
@@ -86,34 +112,35 @@ export function ValuesGrid() {
                   </span>
                 </span>
               </a>
-            </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Feature kart — foto sol, metin sağ (Bumble'in 2 kolon feature'i)    */
+/* Bizden Haberler — foto sol, metin sağ feature kartları              */
 /* ------------------------------------------------------------------ */
 
 export function NewsSection() {
   return (
-    <section className="py-16" aria-label="Bizden haberler">
+    <section id="haberler" className="py-16" aria-label="Bizden haberler">
       <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
         <SectionHeading
           title="Bizden Haberler"
-          action={{ label: "Tüm Haberler", href: "https://www.sultanfatih.k12.tr/haberler/okul-haberleri/" }}
+          action={{ label: "Tüm Haberler", href: OFFICIAL.news }}
         />
-        <div className="grid gap-6 md:grid-cols-2">
-          {NEWS.map((news) => (
-            <Card key={news.title}>
+        <Reveal>
+          <div className="grid gap-6 md:grid-cols-2">
+            {NEWS.map((news) => (
               <a
+                key={news.title}
                 href={news.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group grid grid-cols-[auto_1fr] items-center gap-6 rounded-cards bg-paper-white p-6 shadow-sm"
+                className="group grid grid-cols-[auto_1fr] items-center gap-6 rounded-cards bg-paper-white p-6 shadow-sm transition-transform hover:-translate-y-0.5"
               >
                 <div className="relative h-36 w-44 overflow-hidden rounded-cards">
                   <Image
@@ -125,53 +152,23 @@ export function NewsSection() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-subheading font-semibold text-bumble-ink">
+                  <span className="inline-block rounded-full bg-mist px-2.5 py-1 text-[12px] font-semibold text-graphite">
+                    {news.tag}
+                  </span>
+                  <h3 className="mt-2 text-subheading font-semibold text-bumble-ink">
                     {news.title}
                   </h3>
                   {news.spot && (
                     <p className="mt-2 text-body-sm text-graphite">{news.spot}</p>
                   )}
-                  <span className="mt-4 inline-block text-caption font-semibold tracking-[0.02em] text-bumble-ink uppercase underline decoration-honey decoration-2 underline-offset-4">
+                  <span className="mt-4 inline-block text-caption font-semibold uppercase tracking-[0.02em] text-bumble-ink underline decoration-bumble-honey decoration-2 underline-offset-4">
                     Haberi oku
                   </span>
                 </div>
               </a>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* "Sultan Fatih'te Yaşam" galerisi — 8 fotoan                         */
-/* ------------------------------------------------------------------ */
-
-export function LifeGallery() {
-  return (
-    <section className="py-16" aria-label="Sultan Fatih'te yaşam galerisi">
-      <div className="mx-auto max-w-[var(--page-max-width)] px-6 md:px-8">
-        <SectionHeading title="Sultan Fatih'te Yaşam" />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {GALLERY.map((photo) => (
-            <a
-              key={photo.thumb}
-              href={photo.full}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block aspect-[4/3] overflow-hidden rounded-cards shadow-sm"
-            >
-              <Image
-                src={photo.thumb}
-                alt={photo.alt}
-                fill
-                sizes="(min-width: 768px) 25vw, 46vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </a>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -204,14 +201,6 @@ export function PartnersStrip() {
 /* ------------------------------------------------------------------ */
 /* Ortak parçalar                                                      */
 /* ------------------------------------------------------------------ */
-
-function Card({ children }: { children: React.ReactNode }) {
-  return (
-    <div>
-      {children}
-    </div>
-  );
-}
 
 function SectionHeading({
   title,

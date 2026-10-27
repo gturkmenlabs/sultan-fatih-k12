@@ -84,6 +84,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Yapışkan üst barın çapa hedeflerini örtmemesi için */
+    scroll-padding-top: 110px;
   }
   body {
     @apply bg-paper-white text-bumble-ink font-bumblesans antialiased;
@@ -91,6 +93,74 @@
   ::selection {
     background: var(--color-bumble-ink);
     color: var(--color-paper-white);
+  }
+  /* WCAG 2.1 AA: klavye odağı her etkileşimli öğede belirgin */
+  :focus-visible {
+    outline: 3px solid var(--color-bumble-ink);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll-reveal — görünüme girince yumuşak belirme                    */
+/* ------------------------------------------------------------------ */
+
+.sfk-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+.sfk-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Galeri lightbox giriş animasyonu                                    */
+/* ------------------------------------------------------------------ */
+
+@keyframes sfk-dialog-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sfk-dialog-img-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.sfk-dialog {
+  animation: sfk-dialog-in 200ms ease-out;
+}
+.sfk-dialog-img {
+  animation: sfk-dialog-img-in 250ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sfk-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .sfk-dialog,
+  .sfk-dialog-img {
+    animation: none;
   }
 }
 

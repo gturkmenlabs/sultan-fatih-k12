@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 /**
  * lucide-react bu sürümde marka ikonlarını kaldırdığı için
@@ -85,7 +86,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     links: [
       { label: "Fatih Kampüsü", href: "https://www.sultanfatih.k12.tr/kampusler/fatih-kampusu/sultan-fatih-ilkokulu" },
       { label: "Beylikdüzü Kampüsü", href: "https://www.sultanfatih.k12.tr/kampusler/beylikduzu-kampusu/beylikduzu-sultan-fatih-ilkokulu" },
-      { label: "Ön Kayıt Formu", href: "https://www.sultanfatih.k12.tr/iletisim-bilgileri/on-kayit-formu" },
+      { label: "Ön Kayıt Formu", href: "/on-kayit" },
     ],
   },
   {
@@ -116,7 +117,7 @@ const LEGAL = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-bumble-ink text-paper-white">
+    <footer id="iletisim" className="bg-bumble-ink text-paper-white">
       <div className="mx-auto grid max-w-[var(--page-max-width)] gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-8">
         {/* Marka sütunu */}
         <div>
@@ -133,6 +134,12 @@ export function SiteFooter() {
             Fatih ve Beylikdüzü&apos;nün köklü eğitim kurumu — anaokulu,
             ilkokul, ortaokul, anadolu ve fen lisesi düzeylerinde eğitim.
           </p>
+          <Link
+            href="/on-kayit"
+            className="mt-6 inline-block rounded-buttons bg-bumble-honey px-6 py-3 text-body-sm font-semibold text-bumble-ink transition-colors hover:bg-pollen"
+          >
+            2026–2027 Ön Kayıt Oluştur
+          </Link>
           <ul className="mt-6 flex gap-2" aria-label="Sosyal medya">
             {SOCIALS.map(({ icon: Icon, label, href }) => (
               <li key={label}>
@@ -161,8 +168,9 @@ export function SiteFooter() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(link.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="text-body-sm text-paper-white/70 transition-colors hover:text-paper-white"
                   >
                     {link.label}
